@@ -1,5 +1,5 @@
 # Utilisez une image Node.js officielle comme base
-FROM node:lastest
+FROM node:latest
 
 # Créez un répertoire de travail dans le conteneur
 WORKDIR /app

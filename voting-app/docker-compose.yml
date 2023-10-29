@@ -39,7 +39,7 @@ services:
 
   result-app:
     build:
-      context: ./result-app
+      context: ./result
       dockerfile: Dockerfile
     ports:
       - "5001:5001"
