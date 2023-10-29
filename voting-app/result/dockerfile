@@ -1,0 +1,20 @@
+# Utilisez une image Node.js officielle comme base
+FROM node:lastest
+
+# Créez un répertoire de travail dans le conteneur
+WORKDIR /app
+
+# Copiez le package.json et le package-lock.json dans le répertoire de travail
+COPY package*.json ./
+
+# Installez les dépendances du projet
+RUN npm install
+
+# Copiez tous les fichiers de votre application dans le répertoire de travail
+COPY . .
+
+# Exposez le port sur lequel le serveur écoute
+EXPOSE 8888
+
+# Commande pour exécuter votre application
+CMD [ "npm", "start" ]

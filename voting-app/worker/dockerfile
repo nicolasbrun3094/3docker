@@ -1,0 +1,23 @@
+# Utilisez l'image Microsoft .NET Core 3.1 SDK comme image de base
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+
+WORKDIR /app
+
+# Copiez le fichier csproj et restaurez les dépendances
+COPY Worker.csproj ./
+
+RUN dotnet restore
+
+# Copiez tout le reste et construisez l'application
+COPY . ./
+
+RUN dotnet publish -c Release -o out
+
+# Créez une image d'exécution légère
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+
+WORKDIR /app
+
+COPY --from=build /app/out ./
+
+ENTRYPOINT ["dotnet", "Worker.dll"]
