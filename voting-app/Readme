@@ -1,0 +1,13 @@
+Bienvenue sur notre projet Docker
+Afin de faciliter le processus de lancement de notre application, nous vous fournissions cette documentation. Suivez les étapes ci-dessous pour démarrer le projet :
+
+Instructions
+Naviguez vers le dossier 3docker, puis à l'intérieur du sous-dossier voting app :
+
+bash
+cd 3docker/voting app
+Pour lancer les conteneurs, entrez la commande suivante dans votre interface de ligne de commande (CLI) :
+
+bash
+docker-compose up -d
+Après avoir suivi ces étapes, les services définis dans votre docker-compose.yml devraient être en cours d'exécution. Vous pouvez vérifier l'état de vos services à tout moment en utilisant la commande docker-compose ps.
