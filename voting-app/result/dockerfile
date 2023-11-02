@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8081
 
 # Commande pour exécuter votre application
-CMD [ "npm", "start" ]
+CMD [ "node", "server.js" ]

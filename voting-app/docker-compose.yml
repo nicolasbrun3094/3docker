@@ -2,62 +2,53 @@ version: '3'
 
 services:
   redis:
-    image: redis:latest
+    image: redis
     networks:
       - backend
-    restart: unless-stopped
 
   db:
-    image: postgres:latest
+    image: postgres
     environment:
-      POSTGRES_USER: yourusername
-      POSTGRES_PASSWORD: examplepassword
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
     volumes:
       - postgres_data:/var/lib/postgresql/data  
     networks:
       - backend
-    restart: unless-stopped
 
   vote:
     build:
       context: ./vote
-      dockerfile: Dockerfile
     ports:
-      - "5000:8080"
+      - "8080:8080"
     depends_on:
       - redis
     networks:
       - frontend
       - backend
-    restart: unless-stopped
 
   worker:
     build:
       context: ./worker
-      dockerfile: Dockerfile
     depends_on:
       - redis
       - db
     networks:
       - backend
-    restart: unless-stopped
 
   result-app:
     build:
       context: ./result
-      dockerfile: Dockerfile
     ports:
-      - "5001:5001"
+      - "8081:8081"
     depends_on:
       - db
     networks:
       - frontend
       - backend
-    restart: unless-stopped
 
 volumes:
   postgres_data:
-    driver: local
 
 networks:
   frontend:
