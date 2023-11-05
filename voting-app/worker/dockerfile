@@ -1,22 +1,37 @@
+# Utilisez l'image de base avec la plate-forme spécifiée à partir de BUILDPLATFORM
 FROM --platform=${BUILDPLATFORM} mcr.microsoft.com/dotnet/sdk:7.0 as build
+
+# Définissez des arguments pour la plate-forme cible, l'architecture cible et la plate-forme de build
 ARG TARGETPLATFORM
 ARG TARGETARCH
 ARG BUILDPLATFORM
-RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
+# Affichez les informations sur la plate-forme actuelle et la cible
+RUN echo "Je fonctionne sur $BUILDPLATFORM, en train de construire pour $TARGETPLATFORM"
+
+# Définissez le répertoire de travail dans le conteneur
 WORKDIR /source
+
+# Copiez les fichiers de projet .csproj dans le répertoire de travail
 COPY *.csproj .
+
+# Restaurez les dépendances du projet
 RUN dotnet restore -a $TARGETARCH
 
-# Copiez tout le reste et construisez l'application
+# Copiez tout le reste des fichiers source dans le répertoire de travail
 COPY . .
+
+# Compilez et publiez l'application en mode Release dans le répertoire /app
 RUN dotnet publish -c Release -o /app
 
-# Créez une image d'exécution légère
+# Créez une image d'exécution légère à partir de l'image de base spécifiée
 FROM mcr.microsoft.com/dotnet/runtime:7.0
 
+# Définissez le répertoire de travail dans le conteneur
 WORKDIR /app
-COPY --from=build /app . 
+
+# Copiez les fichiers de l'étape de build précédente dans le répertoire de travail de cette image
+COPY --from=build /app .
+
+# Définissez l'entrée principale pour exécuter l'application
 ENTRYPOINT ["dotnet", "Worker.dll"]
-
-

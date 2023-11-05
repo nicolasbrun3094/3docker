@@ -1,28 +1,18 @@
-# Use an official Python runtime as a parent image
+# Utilisez une image Python officielle comme image parente
 FROM python:3.11
 
-# Set the working directory to /app
+# Définissez le répertoire de travail sur /app
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
+# Copiez le contenu du répertoire courant dans le conteneur dans /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
+# Installez les packages nécessaires spécifiés dans requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
-# Make port 80 available to the world outside this container
+# Rendez le port 80 disponible pour le monde extérieur à ce conteneur
 EXPOSE 8080
 
-# Run app.py when the container launches
+# Exécutez app.py lorsque le conteneur est lancé
 CMD ["python", "app.py"]
-
-
-
-
-
-#Ensuite, utilisez la commande suivante pour construire l'image Docker :
-#docker build -t mon-application-csharp .
-
-#Enfin, exécutez votre application Docker avec :
-#docker run --rm -it mon-application-csharp
 
