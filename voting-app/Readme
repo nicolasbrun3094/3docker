@@ -1,13 +1,59 @@
-Bienvenue sur notre projet Docker
-Afin de faciliter le processus de lancement de notre application, nous vous fournissions cette documentation. Suivez les étapes ci-dessous pour démarrer le projet :
+# Bienvenue sur notre projet Docker
 
-Instructions
-Naviguez vers le dossier 3docker, puis à l'intérieur du sous-dossier voting app :
+Dans le but de simplifier le processus de lancement de notre application, nous avons préparé cette documentation. Suivez les étapes ci-dessous pour démarrer le projet.
+
+## Instructions
+
+1. **Installation de Docker** :
+   Tout d'abord, assurez-vous d'avoir Docker installé sur votre système. Si ce n'est pas le cas, vous pouvez le télécharger depuis le lien suivant : [Télécharger Docker](https://www.docker.com/products/docker-desktop/).
+
+2. **Navigation vers le dossier du projet** :
+   Utilisez votre interface de ligne de commande (CLI) pour naviguer jusqu'au dossier `3docker`, puis accédez au sous-dossier `voting app` :
+
+Création des images Docker :
+
+Pour créer les images nécessaires, exécutez les commandes suivantes dans votre CLI pour chaque composant :
+
+Pour le composant "vote" :
 
 bash
-cd 3docker/voting app
-Pour lancer les conteneurs, entrez la commande suivante dans votre interface de ligne de commande (CLI) :
+
+docker build -t vote-app ./vote
+Pour le composant "result" :
 
 bash
+
+docker build -t result-vote-app ./result
+
+Pour le composant "worker" :
+
+bash
+
+docker build -t worker-vote-app ./worker
+
+Lancement des conteneurs :
+
+Une fois les images construites, lancez les conteneurs en arrière-plan à l'aide de la commande suivante :
+
+bash
+
 docker-compose up -d
-Après avoir suivi ces étapes, les services définis dans votre docker-compose.yml devraient être en cours d'exécution. Vous pouvez vérifier l'état de vos services à tout moment en utilisant la commande docker-compose ps.
+Cette commande utilisera Docker Compose pour démarrer les conteneurs.
+
+Accès à l'interface de l'application :
+Une fois que les conteneurs Docker sont en cours d'exécution, vous pouvez accéder à l'interface de l'application en ouvrant votre navigateur web en mode navigation privée et en visitant les URL suivantes :
+
+Page de vote : localhost:8080
+Page de résultat : localhost:8081
+L'interface est interactive, et les résultats sont enregistrés dans la base de données.
+
+Exploration supplémentaire :
+N'hésitez pas à explorer davantage notre application Dockerisée une fois les conteneurs en cours d'exécution.
+
+Vérification de l'état des services :
+Pour vérifier l'état de vos services à tout moment, utilisez la commande suivante :
+
+bash
+
+docker-compose ps
+Cette commande affiche l'état actuel de tous les services déployés dans votre environnement Docker.
