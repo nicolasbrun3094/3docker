@@ -18,4 +18,3 @@ EXPOSE 8081
 
 # Commande pour exécuter votre application
 CMD [ "node", "server.js" ]
-
